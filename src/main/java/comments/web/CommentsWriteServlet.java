@@ -1,6 +1,7 @@
 package comments.web;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -50,11 +51,14 @@ public class CommentsWriteServlet extends HttpServlet {
 		commentsVO.setArticle_num(Integer.parseInt(article_num));
 		commentsVO.setComments_content(comments_content);
 		commentsVO.setMem_id(mem_id);
+		int insertCommnets = commentsService.insertComments(commentsVO);
+		
+		List<CommentsVO> commentsList = commentsService.getCommentsList(Integer.parseInt(article_num));
 		
 		request.setAttribute("articleVO", articleVO);
 		request.setAttribute("commentsVO", commentsVO);
+		request.setAttribute("commentsList", commentsList);
 		
-		int insertCommnets = commentsService.insertComments(commentsVO);
 		if (insertCommnets == 1) {
 			System.out.println("댓글저장 성공");
 			RequestDispatcher rd = request.getRequestDispatcher("/board/articleDetail.jsp");

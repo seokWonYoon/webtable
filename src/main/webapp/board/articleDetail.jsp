@@ -32,6 +32,7 @@ $(function() {
 		$('#detailfrm').attr('action', '${pageContext.request.contextPath }/deleteArticle');
 		$('#detailfrm').submit();
 	})
+	
 	// 수정 - get
 	$('#articleModify').click(function() {
 		
@@ -53,17 +54,32 @@ $(function() {
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////글 관련 버튼 ^
 	
-        /*새로 생긴 엘리먼트에 접근하는 방법*/
-        $("body").on("click", "#commentsBtn", function(){
-            var form = $("#commentWriteFrm");
-            
-            form.attr("method", "POST");
-            form.attr("action", "<c:url value="/CommentsWriteServlet" />");
- 
-            form.submit(); 
- 
-        });
+    /*새로 생긴 엘리먼트에 접근하는 방법*/
+    $("body").on("click", "#commentsBtn", function(){
+        var form = $("#commentsWriteFrm");
+        
+        form.attr("method", "POST");
+        form.attr("action", "<c:url value="/CommentsWriteServlet" />");
+
+        form.submit(); 
+
+    });
 	
+    $("body").on("click", "#commentsDeleteBtn", function(){
+    	var form = $("#commentsDeleteFrm");
+        
+        form.attr("method", "POST");
+        form.attr("action", "<c:url value="/CommentsDeleteServlet" />");
+
+        form.submit(); 
+    })
+    
+// 	$('#deleteArticle').click(function() {
+// 		//method : post - 서버상 변경이 있을 때
+// 		//action : /deleteUser
+// 		$('#detailfrm').attr('action', '${pageContext.request.contextPath }/deleteArticle');
+// 		$('#detailfrm').submit();
+// 	})
 })
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -110,14 +126,12 @@ $(function() {
 					<div class="form-group">
 						<label for="mem_profile" class="col-sm-2 control-label">글번호</label>
 						<div class="col-sm-4">
-<%-- 							<img src="${pageContext.request.contextPath }/${userVO.mem_profile }" width="100px"> --%>
 							<label class="control-label">${articleVO.article_num}</label>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="mem_profile" class="col-sm-2 control-label">그룹번호</label>
 						<div class="col-sm-4">
-<%-- 							<img src="${pageContext.request.contextPath }/${userVO.mem_profile }" width="100px"> --%>
 							<label class="control-label">${articleVO.article_group_num }</label>
 						</div>
 					</div>
@@ -160,10 +174,6 @@ $(function() {
 					<div class="form-group">
 						<div class="col-sm-offset-2 col-sm-10">
 							<button id="articleReply" type="button" class="btn btn-default">답변</button>
-							<c:set var ="sessionId" value="${session.mem_id}" />
-							session.mem_id  = ${session.mem_id};<%=mem_id %>;<c:out value="${session.mem_id}"/>
-							;<c:out value="${mem_id}"/>
-							<br>
 							    <c:if test="${articleVO.mem_id==mem_id }">    
 									<button id="articleModify" type="button" class="btn btn-default">게시글 수정</button>
 									<button id="deleteArticle" type="button" class="btn btn-default">게시글 삭제</button>
@@ -171,28 +181,24 @@ $(function() {
 						</div>
 					</div>
 				</form>
-		</div>
+			</div>
 		
     
-    <!-- 
-    	게시판 끝
-    	
-    	댓글 시작
-     -->
     	<div class="responsive">
     		
 	    	<div class="container-fluid">
 	          <h2 class="sub-header">댓글쓰기</h2>
-	          <div class="table-responsive">
+	          <div class="table-responsive sm">
 	            <table class="table table-striped table-hover">
-					<form action="${pageContext.request.contextPath }/CommentsWrite" method="post" id="commentWriteFrm">
+					<form action="${pageContext.request.contextPath }/CommentsWrite" method="post" id="commentsWriteFrm">
 						<theaed>
 							<input type="hidden" name="board_num" size = "50" value="${articleVO.board_num }">
 							<input type="hidden" name="article_num" size = "50" value="${articleVO.article_num }">
 							<input type="hidden" name="mem_id" size = "50" value="${mem_id }">
+							<input type="hidden" name="comments_num" size = "50" value="${comments_num }">
 							<tr>
 								<td> 제목 </td>
-								<td colspan="3"> <input type="text" name="article_title" size = "50"><%=session.getAttribute("mem_id") %> </td>
+								<td colspan="3"> <input type="text" name="article_title" size = "50"></td>
 							</tr>
 							<tr>
 								<td> 내용 </td>
@@ -206,30 +212,43 @@ $(function() {
 						</theaed>
 					
 						<tbody>
-								<tr>
-									<td colspan="4"><h2 class="sub-header">댓글보기</h2></td>
-								</tr>
-								<tr>	
-									<td>comments_num</td>
-									<td>comments_content</td>
-									<td>commentsVO.mem_id</td>
-									<td>comments_datetime</td>
-								</tr>
+							<tr>
+								<td colspan="4"><h2 class="sub-header">댓글보기</h2></td>
+							</tr>
+							<tr>	
+								<td>댓글번호</td>
+								<td>댓글내용</td>
+								<td>댓글작성자</td>
+								<td>댓글작성시간</td>
+							</tr>
 							<c:forEach items="${commentsList }" var="commentsVO">
 								<c:if test="${articleVO.article_num==commentsVO.article_num}">
 									<tr>
 										<td>${commentsVO.comments_num}</td>
 										<td>${commentsVO.comments_content}</td>
 										<td>${commentsVO.mem_id}</td>
-										<td>${commentsVO.comments_datetime}</td>
+										<td>${commentsVO.comments_datetime}
+										<c:if test="${articleVO.mem_id==mem_id }">
+											<form id="commentsDeleteFrm">
+											<br>
+											<button id="commentsDeleteBtn" type="button" class="btn btn-default">댓글 삭제</button>
+											<input type="hidden" name="board_num" size = "50" value="${articleVO.board_num }">
+											<input type="hidden" name="article_num" size = "50" value="${articleVO.article_num }">
+											<input type="hidden" name="mem_id" size = "50" value="${mem_id }">
+											<input type="hidden" name="comments_num" size = "50" value="${commentsVO.comments_num}">
+											</form>
+										</c:if>
+										</td>
 									</tr>
 								</c:if>
 							</c:forEach>
 						</tbody>
 					</form>
 				</table>
+			  </div>
 			</div>
 		</div>
 	</div>
+		
 </body>
 </html>

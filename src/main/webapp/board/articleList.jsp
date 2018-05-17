@@ -87,7 +87,7 @@
 						<td>${articleVO.article_num}</td>
 						<td>
 								
-									<c:forEach begin="1" end="${articleVO.level}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</c:forEach>
+									<c:forEach begin="2" end="${articleVO.level}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</c:forEach>
 <%-- 									<c:forEach begin="1" end="${articleVO.article_group_num !=null?articleVO.article_group_num:0}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</c:forEach> --%>
 									<a class="yn" yn="${articleVO.article_delete_yn}">${articleVO.article_delete_yn=='n'?articleVO.article_title:'삭제된 글입니다.'}</a></td>
 <%-- 									<a class="yn" yn="${articleVO.article_delete_yn}" href="getArticle?article_num=${articleVO.article_num }">${articleVO.article_delete_yn=='n'?articleVO.article_title:'삭제된 글입니다.'}</a></td> --%>

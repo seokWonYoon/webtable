@@ -36,7 +36,7 @@ public class CommentsDao implements CommentsDaoInf {
 	@Override
 	public List<CommentsVO> getCommentsList(int article_num) {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
-		List<CommentsVO> commentsList = sqlSession.selectList("comments.getBoardList", article_num);
+		List<CommentsVO> commentsList = sqlSession.selectList("comments.getCommentsList", article_num);
 		sqlSession.close();
 		return commentsList;
 	}
