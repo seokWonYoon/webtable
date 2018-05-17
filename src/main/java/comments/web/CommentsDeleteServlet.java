@@ -32,13 +32,13 @@ public class CommentsDeleteServlet extends HttpServlet {
 		String comments_numString =request.getParameter("comments_num");  
 		
 		int article_num = Integer.parseInt(comments_numString);
-		int board_num = Integer.parseInt(board_numString);
+//		int board_num = Integer.parseInt(board_numString);
 		
 		System.out.println("mem_id : " + mem_id);
 		System.out.println("article_num : " + article_num);
-		System.out.println("board_num : " + board_num);
+//		System.out.println("board_num : " + board_num);
 		
-		CommentsVO commentsVO = new ArticleVO();
+		CommentsVO commentsVO = new CommentsVO();
 		commentsVO.setMem_id(mem_id);
 		commentsVO.setArticle_num(article_num);
 //		articleVO.setBoard_num(board_num);
@@ -50,7 +50,7 @@ public class CommentsDeleteServlet extends HttpServlet {
 		
 		//정상적으로 삭제될 경우
 			if (deleteCnt==1) {
-				response.sendRedirect(request.getContextPath()+"/getArticlePageList?board_num="+board_num);
+				response.sendRedirect(request.getContextPath()+"/getArticle?article_num="+article_num);
 				System.out.println("삭제성공");
 			} else { // 정상적으로 회원 삭제를 하지 못한 경우
 				System.out.println("삭제실패");

@@ -135,11 +135,11 @@ public class ArticleServiceTest {
 		int article_num = 1;
 
 		/***When***/
-		int deleteUserCnt = arcticleDao.deleteArticle(article_num);
+		int deleteArticleCnt = arcticleDao.deleteArticle(articleVO);
 		
 		/***Then***/
 //		assertNotEquals(0, deleteUserCnt);
-		assertNotSame(0, deleteUserCnt);
+		assertNotSame(0, deleteArticleCnt);
 	}
 	
 
