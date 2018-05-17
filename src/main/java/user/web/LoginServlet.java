@@ -33,7 +33,7 @@ public class LoginServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		
+		HttpSession session = request.getSession();
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
 		BoardServiceInf boardService = new BoardService();
@@ -63,7 +63,7 @@ public class LoginServlet extends HttpServlet {
 			
 			request.setAttribute("mem_id", mem_id);
 			
-			HttpSession session = request.getSession();
+			
 			session.setAttribute("mem_id", mem_id);
 			session.setAttribute("user", user);
 			
