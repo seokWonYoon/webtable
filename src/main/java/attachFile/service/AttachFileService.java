@@ -15,19 +15,16 @@ public class AttachFileService implements AttachFileServiceInf {
 
 	@Override
 	public List<AttachFileVO> getAttach_fileList(int article_num) {
-		// TODO Auto-generated method stub
 		return dao.getAttach_fileList(article_num);
 	}
 
 	@Override
 	public AttachFileVO getAttach_file(int attach_file_num) {
-		// TODO Auto-generated method stub
 		return dao.getAttach_file(attach_file_num);
 	}
 
 	@Override
 	public int insertAttach_file(AttachFileVO attachFileVO) {
-		// TODO Auto-generated method stub
 		return dao.insertAttach_file(attachFileVO);
 	}
 

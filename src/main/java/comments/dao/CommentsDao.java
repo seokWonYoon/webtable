@@ -27,7 +27,6 @@ public class CommentsDao implements CommentsDaoInf {
 			inputStream = Resources.getResourceAsStream(resource);
 			sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		System.out.println("CommentDao 싱글톤 적용 완료");

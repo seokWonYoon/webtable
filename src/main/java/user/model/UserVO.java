@@ -81,7 +81,6 @@ public class UserVO implements HttpSessionBindingListener {
 	 */
 	@Override
 	public void valueUnbound(HttpSessionBindingEvent event) {
-		// TODO Auto-generated method stub
 		System.out.println("valueUnbound :" + event.getName());
 	}
 

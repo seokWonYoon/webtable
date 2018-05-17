@@ -16,7 +16,6 @@ public class ArticleVO {
 	private String level;
 	
 	public ArticleVO() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public ArticleVO(int article_num, int article_parent_num, int board_num,
