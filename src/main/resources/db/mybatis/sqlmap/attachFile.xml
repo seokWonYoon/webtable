@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="attach_file">
+
+	<!-- 전체 게시판리스트 가져오기 -->
+	<select id="getAttach_fileList" resultType="AttachFileVO" parameterType="Integer">
+		SELECT *
+		FROM attach_file
+		where article_num = #{article_num}
+	</select>
+	
+	<!-- 선택한 파일의 정보 가져오기 -->
+	<select id="getAttach_file" resultType="AttachFileVO" parameterType="Integer">
+		SELECT *
+		FROM attach_file
+		WHERE attach_file = #{attach_file_num}
+	</select>
+
+	<!-- 파일 등록 -->
+	<insert id="insertAttach_file" parameterType="AttachFileVO">
+		insert into attach_file (attach_file_num, attach_file_name, attach_file_real_name, article_num, attach_file_datetime)
+		values (attach_file_num_seq.nextval, #{attach_file_name}, #{attach_file_real_name}, #{article_num}, sysdate)
+	</insert>	
+</mapper>

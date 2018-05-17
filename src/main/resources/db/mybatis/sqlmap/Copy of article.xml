@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="article">
+
+	<!-- 게시판별 list 조회 -->
+	<select id="getArticlePageList" resultType="ArticleVO" parameterType="map">
+		
+		SELECT *
+		FROM
+			(SELECT
+				rownum rn, article.* , level
+			FROM
+				article
+			WHERE
+				board_num = #{board_num}
+			ORDER BY
+				article_num)
+		WHERE
+			rn
+		between
+			(#{page}-1)*#{pageSize} +1
+		AND
+			#{page}*#{pageSize}
+	</select>
+
+	<!-- 전체 페이지 list 수 조회 -->
+	<select id="getArticleTotalCnt" resultType="Integer" parameterType="Integer">
+		select count(*)
+		FROM article 
+		WHERE board_num = #{board_num}
+	</select>
+
+	<!-- 게시글 상세 조회 -->
+	<select id="getArticle" resultType="ArticleVO" parameterType="Integer" >
+		SELECT *
+		FROM article
+		WHERE article_num = #{article_num}
+	</select>
+
+
+	<!-- 글쓰기 -->
+	<insert id="insertArticle" parameterType="ArticleVO" >
+<!-- 		<selectKey keyProperty="board_num,mem_id" resultType="ArticleVO" order="BEFORE" > -->
+			
+<!-- 			select (SELECT board_num FROM board WHERE board_num = #{board_num}) as board_num, -->
+<!-- 			      (SELECT mem_id FROM webmember WHERE mem_id = #{mem_id}) as mem_id  -->
+<!-- 			 from dual -->
+<!-- 		</selectKey> -->
+		
+		INSERT INTO article
+			(article_num, article_parent_num, board_num,
+			article_group_num, article_title, article_content,
+			mem_id, article_datetime, article_delete_yn)
+		VALUES
+			(article_num_seq.nextval, '', #{board_num},
+			article_num_seq.currval, #{article_title}, #{article_content},
+			#{mem_id}, sysdate, 'n')
+	</insert>
+
+	<!-- 기존 글 삭제 -->
+	<delete id="deleteArticle" parameterType="Integer">
+		UPDATE
+			article
+		SET
+			article_delete_yn = 'y'
+		WHERE
+			article_num = #{article_num}
+			
+	</delete>
+
+	<!-- 게시글 수정 -->
+	<update id="modifyArticle" parameterType="ArticleVO">
+		UPDATE
+			article
+		SET
+			board_num =#{board_num},
+			article_title = #{article_title},
+			article_content = #{article_content},
+			article_datetime = sysdate
+		WHERE
+			mem_id = #{mem_id}
+		AND
+			article_num = #{article_num}
+	</update>
+</mapper>

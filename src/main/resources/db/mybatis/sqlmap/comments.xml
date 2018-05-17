@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="comments">
+	<insert id="insertComments" parameterType="CommentsVO">
+		<selectKey keyProperty="comments_num"  resultType="CommentsVO" order="BEFORE">
+			SELECT comments_num_seq.nextval as comments_num FROM dual
+		</selectKey>
+		insert into comments values(#{comments_num}, #{article_num}, sysdate, #{mem_id}, #{comments_content}, 'n')
+	</insert>
+	
+	<select id="getCommentsList" parameterType="int" resultType="CommentsVO">
+		SELECT * FROM comments WHERE article_num = #{article_num}
+	</select>
+	
+	<update id="modifyComments" parameterType="CommentsVO">
+		UPDATE comments
+		SET 
+			comments_content = #{comments_content}
+		WHERE
+			article_num = #{article_num}
+	</update>
+	
+	<update id="deleteComments" parameterType="CommentsVO">
+		UPDATE comments
+		SET 
+			comments_delete_yn = 'y'
+		WHERE
+			comments_num = #{comments_num}
+		AND
+			mem_id = #{mem_id}
+	</update>
+</mapper>
