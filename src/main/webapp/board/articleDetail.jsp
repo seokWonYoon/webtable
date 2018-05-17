@@ -167,7 +167,7 @@ $(function() {
 					<div class="form-group">
 						<div class="col-sm-offset-2 col-sm-10">
 							<button id="articleReply" type="button" class="btn btn-default">답변</button>
-							<c:set var ="sessionId" value=<%=session.getAttribute("mem_id") %> />
+							<c:set var ="sessionId" value="${session.mem_id }" />
 							    <c:if test="${articleVO.mem_id == sessionId }">    
 									<button id="articleModify" type="button" class="btn btn-default">게시글 수정</button>
 									<button id="deleteArticle" type="button" class="btn btn-default">게시글 삭제</button>
