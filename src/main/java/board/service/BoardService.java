@@ -16,25 +16,21 @@ public class BoardService implements BoardServiceInf{
 
 	@Override
 	public List<BoardVO> getBoardList() {
-		// TODO Auto-generated method stub
 		return dao.getBoardList();
 	}
 
 	@Override
 	public BoardVO getBoard(int board_num) {
-		// TODO Auto-generated method stub
 		return dao.getBoard(board_num);
 	}
 
 	@Override
 	public int setBoard_yn(BoardVO boardVO) {
-		// TODO Auto-generated method stub
 		return dao.setBoard_yn(boardVO);
 	}
 
 	@Override
 	public int insertBoard(BoardVO boardVO) {
-		// TODO Auto-generated method stub
 		return dao.insertBoard(boardVO);
 	}
 	
