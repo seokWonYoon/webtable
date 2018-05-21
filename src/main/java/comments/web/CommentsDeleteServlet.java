@@ -30,7 +30,6 @@ public class CommentsDeleteServlet extends HttpServlet {
         super();
     }
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -72,6 +71,7 @@ public class CommentsDeleteServlet extends HttpServlet {
 			} else { // 정상적으로 회원 삭제를 하지 못한 경우
 				System.out.println("삭제실패");
 			}
+			System.out.println("CommentsDeleteServlet doPost 끝");
 	}
 
 }

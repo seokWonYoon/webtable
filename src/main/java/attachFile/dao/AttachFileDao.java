@@ -24,7 +24,7 @@ public class AttachFileDao implements AttachFileDaoInf {
 	}
 	private AttachFileDao(){
 		String resource = "db/mybatis/mybatisConfig.xml";
-		InputStream inputStream = null;		//test
+		InputStream inputStream = null;
 		
 		try {
 			inputStream = Resources.getResourceAsStream(resource);
